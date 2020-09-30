@@ -7,10 +7,12 @@ pub use crate::twitch_app_api::{
 
 #[cfg(test)]
 mod tests {
+    use super::twitch_app_api;
     use super::Addon;
 
     #[test]
     fn get_addon() {
-        tokio_test::block_on(Addon::from_id(238222)).unwrap();
+        let client = twitch_app_api::build_api_ready_client().unwrap();
+        tokio_test::block_on(Addon::from_id(&client, 238222)).unwrap();
     }
 }
